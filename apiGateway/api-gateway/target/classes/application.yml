@@ -1,0 +1,23 @@
+
+server:
+  port: 8000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      routes:
+      - id: ecommerce
+        uri: lb://ecommerce-service
+        predicates:
+        - Path=/ecommerce/**
+      - id: bank
+        uri: lb://bank
+        predicates:
+        - Path=/bank/**
